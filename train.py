@@ -33,8 +33,8 @@ config = {
           2
         ],
         "size": [
-          2,
-          2
+          4,
+          4
         ]
       },
       "out": 128
@@ -55,12 +55,12 @@ config = {
       "out": 1024
     }
   ],
-  "out": {
-    "relu": False
-  },
+  "keep_probability": 0.9,
   "l2": False,
   "n_batches": 5,
-  "keep_probability": 0.9
+  "out": {
+    "relu": False
+  }
 }
 
     #
@@ -274,6 +274,7 @@ if __name__ == '__main__':
             for epoch in range(config['epochs']):
                 print('Epoch: %s, Step: %s' % (str(epoch+1), step))
                 for batch_i in range(1, n_batches + 1):
+                    print('batch_i', batch_i)
                     for batch_features, batch_labels in helper.load_preprocess_training_batch(batch_i, config['batch_size']):
                         step += config['batch_size']
                         train_neural_network(sess, optimizer, batch_features, batch_labels)

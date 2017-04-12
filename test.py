@@ -10,7 +10,7 @@ try:
 except NameError:
     batch_size = 128
 
-save_model_path = './output/current_2017_04_09_12.35/image_classification'
+save_model_path = './output/train/current_2017_04_12_01.02/image_classification'
 
 """
 Test the saved model against the test dataset
