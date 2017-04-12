@@ -9,60 +9,7 @@ valid_features, valid_labels = pickle.load(open('preprocess_validation.p', mode=
 
 n_classes = 10
 image_shape = (32, 32, 3)
-weights = []
-config = {
-  "optimizer": "Adam",
-  "conv": [
-    {
-      "dropout": False,
-      "strides": [
-        1,
-        1
-      ],
-      "weights": {
-        "stddev": 1.0,
-        "mean": 0.1
-      },
-      "size": [
-        2,
-        2
-      ],
-      "pool": {
-        "strides": [
-          2,
-          2
-        ],
-        "size": [
-          4,
-          4
-        ]
-      },
-      "out": 128
-    }
-  ],
-  "learning_rate": False,
-  "batch_size": 256,
-  "epochs": 4,
-  "prefix": "current",
-  "fc": [
-    {
-      "dropout": True,
-      "weights": {
-        "stddev": 1.0,
-        "mean": 0.1
-      },
-      "relu": True,
-      "out": 1024
-    }
-  ],
-  "keep_probability": 0.9,
-  "l2": False,
-  "n_batches": 5,
-  "out": {
-    "relu": False
-  }
-}
-
+config = None
     #
     # Initializers
     #
@@ -214,8 +161,12 @@ def print_stats(session, cost, summary, accuracy, logits, train_writer, valid_wr
     valid_writer.add_summary(summary_, epoch)
     print('Valid accuracy=', valid_accuracy)
 
-
-if __name__ == '__main__':
+def run(conf):
+    global config
+    config = conf
+    global weights
+    weights = []
+    tf.reset_default_graph()
 
     with tf.Graph().as_default() as graph:
         # Inputs
@@ -285,3 +236,59 @@ if __name__ == '__main__':
             save_model_path = 'output/train/%s/image_classification' % dirname
             save_path = saver.save(sess, save_model_path)
             print('Done. Saved!')
+
+
+if __name__ == '__main__':
+    config = {
+      "optimizer": "Adam",
+      "conv": [
+        {
+          "dropout": False,
+          "strides": [
+            1,
+            1
+          ],
+          "weights": {
+            "stddev": 1.0,
+            "mean": 0.1
+          },
+          "size": [
+            2,
+            2
+          ],
+          "pool": {
+            "strides": [
+              2,
+              2
+            ],
+            "size": [
+              4,
+              4
+            ]
+          },
+          "out": 128
+        }
+      ],
+      "learning_rate": False,
+      "batch_size": 256,
+      "epochs": 4,
+      "prefix": "current",
+      "fc": [
+        {
+          "dropout": True,
+          "weights": {
+            "stddev": 1.0,
+            "mean": 0.1
+          },
+          "relu": True,
+          "out": 1024
+        }
+      ],
+      "keep_probability": 0.9,
+      "l2": False,
+      "n_batches": 5,
+      "out": {
+        "relu": False
+      }
+    }
+    run(config)
