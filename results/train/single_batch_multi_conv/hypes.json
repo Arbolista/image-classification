@@ -1,0 +1,78 @@
+{
+  "optimizer": "Adam", 
+  "conv": [
+    {
+      "dropout": false, 
+      "strides": [
+        1, 
+        1
+      ], 
+      "weights": {
+        "stddev": 1.0, 
+        "mean": 0.1
+      }, 
+      "size": [
+        3, 
+        3
+      ], 
+      "pool": {
+        "strides": [
+          2, 
+          2
+        ], 
+        "size": [
+          2, 
+          2
+        ]
+      }, 
+      "out": 32
+    }, 
+    {
+      "dropout": false, 
+      "strides": [
+        1, 
+        1
+      ], 
+      "weights": {
+        "stddev": 1.0, 
+        "mean": 0.1
+      }, 
+      "size": [
+        3, 
+        3
+      ], 
+      "pool": {
+        "strides": [
+          2, 
+          2
+        ], 
+        "size": [
+          2, 
+          2
+        ]
+      }, 
+      "out": 64
+    }
+  ], 
+  "learning_rate": false, 
+  "batch_size": 256, 
+  "epochs": 16, 
+  "prefix": "current", 
+  "fc": [
+    {
+      "dropout": true, 
+      "weights": {
+        "stddev": 1.0, 
+        "mean": 0.1
+      }, 
+      "relu": true, 
+      "out": 1024
+    }
+  ], 
+  "out": {
+    "relu": false
+  }, 
+  "l2": false, 
+  "n_batches": 1, 
+  "keep_probability": 0.6
+}

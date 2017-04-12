@@ -1,0 +1,6 @@
+output/
+preprocess_*
+cifar-10-python.tar.gz
+cifar-10-batches-py/
+.DS_Store
+*.pyc
